@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import SideBar from "./_components/SideBar";
+import NavBar from "./_components/NavBar";
+import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +13,24 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} flex items-start justify-between`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+        <div className="min-h-screen p-4 border-r min-w-24 md:min-w-56">
+
+            <SideBar />
+        </div>
+         
+          <main className="w-full h-full">
+            <NavBar />
+            <div className="p-6">{children}</div>
+          </main>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
